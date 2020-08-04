@@ -1,0 +1,97 @@
+<%- include('../includes/head.ejs') %>
+
+<body>
+  <%- include('../includes/navbar.ejs') %>
+  <div class="container">
+    <div class="row">
+      <%- include('../includes/menu.ejs') %>
+      <!-- content -->
+      <div class="col-md-9">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Student List
+            <a href="/student-list/add" class="btn btn-primary btn-sm pull-right">
+              <i class="glyphicon glyphicon-plus"></i>
+              Added Students
+            </a>
+          </div>
+          <% if(message){%> 
+            <div class="alert alert-info" role="alert">
+                    <%= message %> 
+              </div>
+            <% } %>   
+                  <table class="table" id="table">
+        <% if(student.length > 0){ %>
+         <% for (let students of student) {%>
+          <tr>
+            <td class="middle">
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="<%= students.Image %>" height="100px" width="100px" alt="...">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <address>
+                    <b>Name Student</b> : <%= students.name %><br>
+                    <b>Gender</b> : <%= students.gender %><br>
+                    <b> Address </b> : <%= students.Address %><br>
+                    <b> Class </b> : <%= students.classs %><br>
+                    <b> Nik </b> : <%= students.nik %>
+                  </address>
+                </div>
+              </div>
+            </td>
+            <td width="100" class="middle">
+              <div>
+                <a href="/student-list/<%= students.id %>?edit=true" class="btn btn-circle btn-default btn-xs"
+                  title="Edit">
+                  <i class="fas fa-pencil-alt"></i>
+                </a>
+                <!-- <form action="/student-delete" method="post"> -->
+                  <%- include("../csrf/csrf.ejs") %> 
+                  <input type="hidden" name="studentId" value="<%= students.id %>">
+                  <button type="button" onclick="deleteStudent(this)" class="btn btn-circle btn-danger btn-xs">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                <!-- </form> -->
+                </a>
+              </div>
+            </td>
+          </tr>
+         <%}%>
+          <%}%>
+          </table>
+        </div>
+        <div class="text-center">
+          <nav>
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li >
+                <% if(currentPage !== 1 && PreviousPage !== 1) {%>
+                  <a href="?page=1">1</a>
+                      <% } %>
+                      <% if(hasPrevious) {%>
+                            <a href="?page=<%= PreviousPage %>"><%= PreviousPage %></a>
+                      <% } %>
+                      <a href="?page=<%= currentPage %>" class="active"><%= currentPage %></a>
+                      <% if(hasNextPage) {%>
+                            <a href="?page=<%= nextPage %>"><%= nextPage %></a>
+                      <% } %>
+                      <% if(lastPage !== currentPage && nextPage !== lastPage) {%>
+                            <a href="?page=<%= lastPage %>" ><%= lastPage %></a>
+                      <% } %>
+              </li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+    </div>
+        <%- include('../includes/footer.ejs') %>

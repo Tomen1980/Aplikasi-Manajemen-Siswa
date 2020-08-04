@@ -1,0 +1,14 @@
+<div class="col-md-3">
+  <div class="list-group-custom">
+    <a href="/home" class="list-group-item <%= path === '/' ? 'active' : '' %>">Home<span class="badge"></span></a>
+    <a href="/assessment" class="list-group-item <%= path === '/assessment' ? 'active' : '' %> ">Student Assessment<span
+        class="badge"></span></a>
+    <a href="/student-list" class="list-group-item  <%= path === '/student-list' ? 'active' : '' %> ">Student List<span
+        class="badge"></span></a>
+    <a href="/report" class="list-group-item">Report Assessment<span class="badge"></span></a>
+    <form action="/logout" method="post">
+      <%- include("../csrf/csrf.ejs") %> 
+      <button type="submit" class="list-group-item">Logout</button>
+    </form>
+  </div>
+</div><!-- /.col-md-3 -->
